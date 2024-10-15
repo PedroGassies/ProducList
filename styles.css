@@ -1,0 +1,34 @@
+@font-face {
+    font-family: "RedHat";
+    src: url(./assets/fonts/RedHatText-VariableFont_wght.ttf);
+}
+
+html{
+   background-color: hsl(20, 50%, 98%);
+}
+
+body{
+    margin: 0 5%
+
+}
+
+p{
+    font-family: "RedHat";
+    font-size: 16px;;
+}
+
+.carte{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width:70%;
+}
+.carte div{
+    width: 30%;
+}
+
+.carte img{
+    max-width: 100%;
+    border-radius: 10px;
+}
+
