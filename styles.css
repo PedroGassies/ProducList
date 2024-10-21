@@ -8,27 +8,181 @@ html{
 }
 
 body{
-    margin: 0 5%
+    margin: 30px 7%;
 
+}
+main{
+    display:flex;
+    justify-content: space-between;
+}
+section{
+    width:65%
+}
+h1,h2,p,span{
+font-family: "RedHat";
+color:hsl(14, 65%, 9%);
+}
+h1{
+    font-size:40px;
+}
+h2{
+    color:hsl(14, 86%, 42%)
 }
 
 p{
-    font-family: "RedHat";
-    font-size: 16px;;
+    
+    font-weight: 700;
+    font-size: 16px;
+    margin:4px 0;
+}
+span{
+    font-size: 14px;
+    color:white
 }
 
-.carte{
+.carte {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    width:70%;
-}
-.carte div{
-    width: 30%;
+    margin-top: 24px;
 }
 
-.carte img{
+.carte > div {
+    width: 31%;
+    position: relative; /* Pour permettre au bouton de se positionner par rapport à ce conteneur */
+}
+
+.carte img {
     max-width: 100%;
     border-radius: 10px;
 }
 
+.text {
+    margin-bottom: 24px;
+}
+
+.category {
+    font-size: 14px;
+    font-weight: 400;
+    color: hsl(7, 20%, 60%);
+}
+
+.price {
+    color: hsl(14, 86%, 42%);
+}
+
+.panier {
+    width: 30%;
+    margin-top: 50px;
+    background-color: white;
+    padding-left: 24px;
+    border-radius: 10px;
+    height: 290px;
+}
+
+.panier div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.panier p {
+    margin-top: 24px;
+    color: hsl(7, 20%, 60%);
+    font-size: 14px;
+}
+
+.carbon-neutral-message{
+    background-color:hsl(20, 50%, 98%);
+    border-radius:5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 48px;
+    justify-content: center;
+    margin-right: 8%;
+}
+.carbon-neutral-message span{
+    color:hsl(14, 65%, 9%);
+}
+.btn-commande,.btn-commande-active,#confirm-order {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 48px;
+    border-radius: 25px;
+    border: 1px solid hsl(12, 20%, 44%);
+    font-size: 14px;
+    padding-left: 12px;
+    font-family: "RedHat";
+    font-weight: 700;
+}
+.btn-commande{
+    background-color: white;
+    color: hsl(14, 65%, 9%);
+}
+.btn-commande:hover{
+    cursor:pointer;
+}
+
+.btn-commande img {
+    border-radius: 0;
+    margin-right: 5px;
+}
+.btn-commande-active{
+    background-color: hsl(14, 86%, 42%);
+    color:white;
+    border: none;
+    padding: 0 5%;
+}
+.btn-commande-active button{
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    background-color: hsl(14, 86%, 42%);
+    border: solid 1px white;
+    border-radius: 10px;
+}
+.btn-commande-active button:hover{
+    cursor: pointer;
+}
+.quantity-controls{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.border-active {
+    border: 2px solid hsl(14, 86%, 42%); /* Choisis la couleur qui te plaît */
+}
+#confirm-order{
+    color:white;
+    background-color: hsl(14, 86%, 42%);
+    width:92%;
+    border: none;
+    margin-top: 24px;
+    padding: 0;
+}
+.btnDiv{
+    display: flex;
+    justify-content: center;
+    transform: translateY(-60%);
+}
+
+@media(max-width:768px){
+    main{
+        flex-wrap: wrap;
+    }
+    section{
+        width: 100%;
+    }
+    .carte div{
+        width:100%;
+    }
+    .panier{
+        width: 100%;
+    }
+    .btn-commande,.btn-commande-active{
+        width: 50%;
+    }
+}
