@@ -26,7 +26,8 @@ h1{
     font-size:40px;
 }
 h2{
-    color:hsl(14, 86%, 42%)
+    color:hsl(14, 86%, 42%);
+    margin-bottom: 0;
 }
 
 p{
@@ -75,21 +76,74 @@ span{
     width: 30%;
     margin-top: 50px;
     background-color: white;
-    padding-left: 24px;
+    padding: 0 24px;
     border-radius: 10px;
-    height: 290px;
+    height: fit-content;
 }
 
-.panier div {
+.articles,.empty {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.panier p {
+
+.empty-cart-message{
     margin-top: 24px;
     color: hsl(7, 20%, 60%);
     font-size: 14px;
+}
+.cart-item{
+    display: flex;
+    width: 100%;
+    padding: 15px;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid hsl(13, 31%, 94%);
+}
+.infos-element{
+    display: flex;
+    width: 50%;
+    flex-wrap: wrap;
+    gap: 0 10px;
+}
+.cart-item p{
+    font-size: 14px;
+}
+.name-element{
+    width:100%;
+}
+
+.cart-item-price,.cart-item-total-price{
+    color: hsl(7, 20%, 60%);
+}
+
+.cart-item-price{
+    font-weight: 600;
+    margin-left: 12px;
+}
+.remove-item{
+    border: 1.5px solid hsl(7, 20%, 60%);
+    border-radius: 7px;
+    align-self: center
+}
+.remove-item:hover{
+    cursor: pointer;
+}
+.order-total-message{
+    padding-top:15px;
+    display: flex;
+    justify-content: space-between;
+}
+.order-total-message p:nth-child(1){
+    color:hsl(12, 20%, 44%);
+    align-self: center;
+    font-weight: 400;
+    font-size: 14px;
+}
+.order-total-message p:nth-child(2){
+    color:hsl(14, 65%, 9%);
+    font-size: 28px;
 }
 
 .carbon-neutral-message{
@@ -100,7 +154,7 @@ span{
     align-items: center;
     height: 48px;
     justify-content: center;
-    margin-right: 8%;
+    margin-top: 16px;
 }
 .carbon-neutral-message span{
     color:hsl(14, 65%, 9%);
@@ -152,15 +206,19 @@ span{
     justify-content: space-between;
     width: 100%;
 }
+
+.cart-item-quantity{
+    color: hsl(14, 86%, 42%)
+}
 .border-active {
     border: 2px solid hsl(14, 86%, 42%); /* Choisis la couleur qui te plaît */
 }
 #confirm-order{
     color:white;
     background-color: hsl(14, 86%, 42%);
-    width:92%;
+    width:100%;
     border: none;
-    margin-top: 24px;
+    margin: 24px 0;
     padding: 0;
 }
 #confirm-order:hover{
@@ -184,6 +242,12 @@ span{
     }
     .panier{
         width: 100%;
+    }
+    .carte-item p{
+        font-size: 12px;
+    }
+    .infos-element{
+        width:70%;
     }
     .btn-commande,.btn-commande-active{
         width: 50%;

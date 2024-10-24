@@ -1,49 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
   <link href="/styles.css" rel="stylesheet">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
+
   <title>Frontend Mentor | Product list with cart</title>
   <script src="/script.js"></script>
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
   <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
   </style>
 </head>
+
 <body>
   <main>
-  
-  <section>
-    <h1>Desserts</h1>
-    <div class="carte">
 
+    <section>
+      <h1>Desserts</h1>
+      <div class="carte">
+
+      </div>
+
+    </section>
+    <div class="panier">
+      <h2>Your Cart (0)</h2>
+      <div class="articles"></div>
+      <div class="order-total-message"></div>
+      <div class="carbon-neutral-message" style="display: none;">
+        <img src="assets/images/icon-carbon-neutral.svg" alt="carbon-neutral icon" class="carbon-neutral-icon">
+        <span>This is a <strong>carbon-neutral</strong> delivery</span>
+      </div>
+      <div class="empty">
+
+        <img src="assets/images/illustration-empty-cart.svg" class="empty-cart-image">
+        <p class="empty-cart-message">Your added items will appear here</p>
+      </div>
     </div>
 
-  </section>
-  <div class="panier">
-    <h2>Your Cart (0)</h2>
-    <div class="articles"></div>
-    <div class="order-total-message"></div>
-    <div class="carbon-neutral-message" style="display: none;">
-      <img src="assets/images/icon-carbon-neutral.svg" alt="carbon-neutral icon" class="carbon-neutral-icon">
-      <span>This is a <strong>carbon-neutral</strong> delivery</span>
-  </div>
-    <div>
-    
-      <img src="assets/images/illustration-empty-cart.svg"  class="empty-cart-image">
-    <p class="empty-cart-message">Your added items will appear here</p>
+  </main>
+  <footer>
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+      Coded by <a href="#">Pedro Gassies</a>.
     </div>
-  </div>
+  </footer>
 
-</main>
-  <footer><div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by <a href="#">Pedro Gassies</a>.
-  </div></footer>
-  
 </body>
+
 </html>
