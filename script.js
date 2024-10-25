@@ -71,17 +71,14 @@ async function affichage() {
 
 /********** FONCTION POUR AJOUTER UN ARTICLE DANS LE PANIER **********/
 function addToCart(itemName, itemPrice, button, imageElement) {
-    // Vérifier si le bouton est déjà actif
     if (!button.classList.contains("btn-commande-active")) {
         let quantity = 1;
-        totalItems += quantity; // Ajouter au total
+        totalItems += quantity;
         updateCartCount();
 
-        // Ajouter la classe active
         button.classList.add("btn-commande-active");
         imageElement.classList.add("border-active");
 
-        // Remplacer le contenu du bouton par les contrôles de quantité
         button.innerHTML = `
             <div class="quantity-controls">
                 <button class="decrease">
@@ -101,100 +98,104 @@ function addToCart(itemName, itemPrice, button, imageElement) {
         // Gestion de l'augmentation de la quantité
         increaseBtn.addEventListener("click", function (e) {
             e.stopPropagation();
-            quantity++; // Incrémenter la quantité locale
-            totalItems++; // Incrémenter le total général
-            quantityDisplay.textContent = quantity; // Mettre à jour l'affichage
-            updateCartItem(itemName, quantity, itemPrice); // Mettre à jour le panier
-            updateCartCount(); // Mettre à jour le compteur total
+            quantity++;
+            totalItems++;
+            quantityDisplay.textContent = quantity;
+            updateCartItem(itemName, quantity, itemPrice);
+            updateCartCount();
         });
 
         // Gestion de la diminution de la quantité
         decreaseBtn.addEventListener("click", function (e) {
             e.stopPropagation();
             if (quantity > 1) {
-                quantity--; // Décrémenter la quantité locale
-                totalItems--; // Décrémenter le total général
-                quantityDisplay.textContent = quantity; // Mettre à jour l'affichage
-                updateCartItem(itemName, quantity, itemPrice); // Mettre à jour le panier
+                quantity--;
+                totalItems--;
+                quantityDisplay.textContent = quantity;
+                updateCartItem(itemName, quantity, itemPrice);
             } else {
-                totalItems--; // Décrémenter le total général
+                totalItems--;
                 button.innerHTML = `
-            <img src="./assets/images/icon-add-to-cart.svg" alt="Add to cart icon">
-            Add to Cart
-        `;
+                    <img src="./assets/images/icon-add-to-cart.svg" alt="Add to cart icon">
+                    Add to Cart
+                `;
                 button.classList.remove("btn-commande-active");
                 imageElement.classList.remove("border-active");
-                removeItemFromCart(itemName); // Retirer l'article du panier
+                removeItemFromCart(itemName);
             }
-            updateCartCount(); // Mettre à jour le compteur total
+            updateCartCount();
         });
 
-
-        // Ajouter l'article au panier
-        addItemToCart(itemName, itemPrice, quantity);
+        // Ajouter l'article avec l'image au panier
+        addItemToCart(itemName, itemPrice, quantity, imageElement.src);
         updateCartCount();
     }
 }
 
 /********** FONCTION POUR AJOUTER L'ARTICLE DANS LE PANIER **********/
-function addItemToCart(name, price, quantity) {
+function addItemToCart(name, price, quantity, thumbnail) {
     const articlesContainer = document.querySelector(".articles");
 
-    // Vérifier si l'article est déjà dans le panier
+    // Vérifier si l'article existe déjà dans le panier
     const existingCartItem = document.querySelector(`.cart-item[data-name="${name}"]`);
     if (existingCartItem) {
-        // Si l'article est déjà dans le panier, mettre à jour la quantité
         const quantityElement = existingCartItem.querySelector(".cart-item-quantity");
         const totalPriceElement = existingCartItem.querySelector(".cart-item-total-price");
 
+        // Mettre à jour la quantité et le prix total
         const newQuantity = parseInt(quantityElement.textContent) + quantity;
-        quantityElement.textContent = newQuantity + 'x'; // Mise à jour de la quantité dans le panier
-        totalPriceElement.textContent = (newQuantity * price).toFixed(2) + "$"; // Mise à jour du prix total
+        quantityElement.textContent = `${newQuantity}x`;
+        totalPriceElement.textContent = `${(newQuantity * price).toFixed(2)}$`;
     } else {
-        // Si l'article n'est pas encore dans le panier, l'ajouter
+        // Création d'un nouvel article dans le panier
         const articleElement = document.createElement("div");
         articleElement.classList.add("cart-item");
         articleElement.setAttribute("data-name", name);
 
-        const infosElement = document.createElement("div")
-        infosElement.classList.add("infos-element")
+        const itemImageElement = document.createElement("img");
+        itemImageElement.src = thumbnail;
+        itemImageElement.alt = name;
+        itemImageElement.classList.add("cart-item-image");
+
+        const infosElement = document.createElement("div");
+        infosElement.classList.add("infos-element");
+
         const itemNameElement = document.createElement("p");
-        itemNameElement.classList.add('name-element')
+        itemNameElement.classList.add('name-element');
         itemNameElement.textContent = name;
 
         const itemQuantityElement = document.createElement("p");
         itemQuantityElement.classList.add("cart-item-quantity");
-        itemQuantityElement.textContent = `${quantity}x`; // Afficher la quantité initiale dans le panier
+        itemQuantityElement.textContent = `${quantity}x`;
 
         const itemPriceElement = document.createElement("p");
         itemPriceElement.classList.add("cart-item-price");
         itemPriceElement.textContent = `${price.toFixed(2)}$`;
 
         const totalPriceElement = document.createElement("p");
-        const totalPrice = price * quantity;
+        const totalPrice = quantity * price;
         totalPriceElement.classList.add("cart-item-total-price");
         totalPriceElement.textContent = `${totalPrice.toFixed(2)}$`;
 
-        // Création de l'élément SVG pour retirer l'article
         const removeItemElement = document.createElement("img");
-        removeItemElement.src = "./assets/images/icon-remove-item.svg"; // Chemin vers ton image SVG
+        removeItemElement.src = "./assets/images/icon-remove-item.svg";
         removeItemElement.alt = "Remove item";
-        removeItemElement.classList.add("remove-item"); // Ajoutez une classe pour le style si besoin
+        removeItemElement.classList.add("remove-item");
 
-        // Événement de clic pour retirer l'article
+        // Gestion de la suppression de l'article
         removeItemElement.addEventListener("click", function () {
             removeItemFromCart(name);
         });
 
-        // Construction de la structure
-
-        articleElement.appendChild(infosElement);
+        // Structure de l'article dans le panier
+        articleElement.appendChild(itemImageElement);
         infosElement.appendChild(itemNameElement);
         infosElement.appendChild(itemQuantityElement);
         infosElement.appendChild(itemPriceElement);
         infosElement.appendChild(totalPriceElement);
+        articleElement.appendChild(infosElement);
+        articleElement.appendChild(removeItemElement);
 
-        articleElement.appendChild(removeItemElement); // Ajoutez l'élément de retrait
         articlesContainer.appendChild(articleElement);
     }
 }
@@ -324,7 +325,6 @@ function removeItemFromCart(name) {
 }
 
 // Fonction pour ouvrir la modale
-// Fonction pour ouvrir la modale
 function openModal() {
     // Créer la modale
     const modal = document.createElement('div');
@@ -354,55 +354,125 @@ function openModal() {
 
     // Récupérer les articles du panier
     const cartItems = document.querySelectorAll(".cart-item");
+    let orderTotal = 0; // Initialiser le total de la commande
+
     cartItems.forEach(cartItem => {
         // Créer un div pour chaque article
         const modalItem = document.createElement('div');
         modalItem.className = 'modal-item';
 
         // Récupérer les informations de l'article
+        const itemImage = cartItem.querySelector('.cart-item-image').src;
         const itemName = cartItem.querySelector('.name-element').textContent;
         const itemQuantity = cartItem.querySelector('.cart-item-quantity').textContent;
-        const itemPrice = cartItem.querySelector('.cart-item-price').textContent;
-        const itemTotalPrice = cartItem.querySelector('.cart-item-total-price').textContent;
-        // Ajouter les informations dans la modale
+        const itemPrice = parseFloat(cartItem.querySelector('.cart-item-price').textContent.replace('$', '')); // Retirer le $
+        const itemTotalPrice = parseFloat(cartItem.querySelector('.cart-item-total-price').textContent.replace('$', '')); // Retirer le $
 
+        orderTotal += itemTotalPrice; // Ajouter le prix total de l'article au total de la commande
+
+        // Ajouter l'image de l'article
+        const imageElement = document.createElement("img");
+        imageElement.src = `${itemImage}`;
+
+        // Créer une div pour le nom de l'article
         const nameElement = document.createElement('p');
         nameElement.textContent = `${itemName}`;
+        nameElement.classList.add("name");
+
+        // Créer une div pour la quantité et le prix
+        const quantityPriceDiv = document.createElement('div');
+        quantityPriceDiv.className = 'quantity-price';
 
         const quantityElement = document.createElement('p');
         quantityElement.textContent = `${itemQuantity}`;
+        quantityElement.classList.add("quantity");
 
         const priceElement = document.createElement('p');
-        priceElement.textContent = `$${itemPrice}`;
+        priceElement.textContent = `@ $${itemPrice.toFixed(2)}`; // Réajouter le $ devant le prix et formater à 2 décimales
+        priceElement.classList.add("price");
 
-        const totalPriceElement = document.createElement('p');
-        totalPriceElement.textContent = `$${itemTotalPrice}`;
+        // Ajouter la quantité et le prix dans quantityPriceDiv
+        quantityPriceDiv.appendChild(quantityElement);
+        quantityPriceDiv.appendChild(priceElement);
+
+        // Créer une div pour itemDetails
+        const itemDetailsDiv = document.createElement('div');
+        itemDetailsDiv.className = 'item-details';
+
+        // Ajouter le nom et la div quantityPrice dans itemDetails
+        itemDetailsDiv.appendChild(nameElement);
+        itemDetailsDiv.appendChild(quantityPriceDiv);
 
         // Ajouter les éléments dans modalItem
-        modalItem.appendChild(nameElement);
-        modalItem.appendChild(quantityElement);
-        modalItem.appendChild(priceElement);
-        modalItem.appendChild(totalPriceElement);
+        modalItem.appendChild(imageElement);
+        modalItem.appendChild(itemDetailsDiv);
+        modalItem.appendChild(document.createElement('p')).textContent = `$${itemTotalPrice.toFixed(2)}`; // Total price avec $ avant
 
         // Ajouter l'article complet dans la liste des articles de la modale
         modalArticles.appendChild(modalItem);
     });
 
+    // Créer une div pour afficher le total de la commande
+    const totalDiv = document.createElement('div');
+    totalDiv.className = 'order-total-container'; // Optionnel : ajouter une classe pour le style
+
+    // Créer le premier paragraphe pour "Order Total"
+    const orderTotalLabel = document.createElement('p');
+    orderTotalLabel.textContent = 'Order Total';
+    orderTotalLabel.className = 'order-total-label'; // Optionnel : ajouter une classe pour le style
+
+    // Créer le deuxième paragraphe pour le montant
+    const totalAmount = document.createElement('p');
+    totalAmount.textContent = `$${orderTotal.toFixed(2)}`; // Afficher le total avec $ devant
+    totalAmount.className = 'order-total-amount'; // Optionnel : ajouter une classe pour le style
+
+    // Ajouter les paragraphes dans la div totalDiv
+    totalDiv.appendChild(orderTotalLabel);
+    totalDiv.appendChild(totalAmount);
+
+    // Ajouter la div totalDiv à la fin des articles dans modalArticles
+    modalArticles.appendChild(totalDiv);
+
+    // Ajouter modalArticles au contenu de la modale
     modalContent.appendChild(modalArticles);
 
     // Bouton de fermeture
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'Start New Order';
-    closeButton.onclick = function () {
-        document.body.removeChild(modal);
-    };
-    modalContent.appendChild(closeButton);
+const closeButton = document.createElement('button');
+closeButton.textContent = 'Start New Order';
+closeButton.onclick = function () {
+    resetCart(); // Réinitialiser le panier et les quantités
+    document.body.removeChild(modal); // Fermer la modale
+};
+modalContent.appendChild(closeButton);
+
 
     modal.appendChild(modalContent);
     document.body.appendChild(modal);
 }
 
+function resetCart() {
+    // Réinitialise le compteur d'articles
+    totalItems = 0;
+    updateCartCount();
 
+    // Supprimer tous les articles du panier
+    const cartItems = document.querySelectorAll('.cart-item');
+    cartItems.forEach(item => item.remove());
+
+    // Réinitialiser les quantités des articles dans la carte
+    const buttons = document.querySelectorAll('.btn-commande-active');
+    buttons.forEach(button => {
+        button.classList.remove('btn-commande-active');
+        button.innerHTML = `
+            <img src="./assets/images/icon-add-to-cart.svg" alt="Add to cart icon">
+            Add to Cart
+        `;
+        
+        // Réinitialiser les éléments d'image
+        const imageElement = button.parentElement.parentElement.querySelector('.plat-image');
+        imageElement.classList.remove('border-active');
+    });
+}
 
 
 affichage();

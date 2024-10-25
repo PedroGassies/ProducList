@@ -113,7 +113,9 @@ span{
 .name-element{
     width:100%;
 }
-
+.panier .cart-item-image{
+    display:none;
+}
 .cart-item-price,.cart-item-total-price{
     color: hsl(7, 20%, 60%);
 }
@@ -229,6 +231,8 @@ span{
     justify-content: center;
     transform: translateY(-60%);
 }
+
+
 /******** MODAL *********/
 .modal {
     position: fixed;
@@ -250,17 +254,71 @@ span{
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-
+.modal .articles{
+    margin-top: 24px;
+}
+.articles>div{
+        padding:15px 0;
+        margin:0 15px;
+}
 .modal-content h1{
     margin: 10px 0;
 }
  
 .modal-content p{
     font-size: 14px;
-    color:hsl(7, 20%, 60%);
     font-weight: 500;
 }
-  
+.modal-content>p{
+    color:hsl(7, 20%, 60%);
+}
+.modal-item{
+    display:flex;
+    border-bottom:1px solid hsl(13, 31%, 94%);
+}
+.modal img{
+    width: 15%;
+    border-radius: 5px;
+}
+.modal-content .articles{
+    background-color:hsl(20, 50%, 98%);
+}
+.item-details{
+    margin-left: 15px
+}
+.modal-item>p{
+    margin-left:auto;
+    align-self: center;
+    font-size: 16px;
+    color:hsl(14, 65%, 9%);
+}
+.name {
+    color: hsl(14, 65%, 9%);
+}
+
+.quantity-price{
+    display:flex;
+    gap:8px;
+}
+.modal-item .quantity{
+    color:hsl(14, 86%, 42%);
+}
+.price{
+    color:hsl(7, 20%, 60%);
+}
+.order-total-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    width: 93%;
+}
+.articles .order-total-label{
+    align-self: center;
+    font-size: 12px;
+}
+.articles .order-total-amount{
+    font-size:20px
+}
 @media(max-width:768px){
     main{
         flex-wrap: wrap;
@@ -282,5 +340,12 @@ span{
     }
     .btn-commande,.btn-commande-active{
         width: 50%;
+    }
+    .modal-content{
+        width:100%;
+        padding:20px;
+    }
+    .modal-content button{
+        margin-bottom: 4px;
     }
 }
