@@ -260,6 +260,7 @@ function createConfirmOrderButton() {
         confirmOrderBtn.id = "confirm-order";
         confirmOrderBtn.textContent = "Confirm Order";
         document.querySelector(".panier").appendChild(confirmOrderBtn);
+        confirmOrderBtn.addEventListener('click', openModal);
     }
 }
 
@@ -321,6 +322,87 @@ function removeItemFromCart(name) {
         updateCartCount(); // Mettre à jour le compteur total
     }
 }
+
+// Fonction pour ouvrir la modale
+// Fonction pour ouvrir la modale
+function openModal() {
+    // Créer la modale
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+
+    // Créer le contenu de la modale
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content';
+
+    const confirmedImage = document.createElement('img');
+    confirmedImage.src = "./assets/images/icon-order-confirmed.svg";
+    modalContent.appendChild(confirmedImage);
+
+    // Créer un en-tête
+    const modalHeader = document.createElement('h1');
+    modalHeader.textContent = 'Order Confirmed';
+    modalContent.appendChild(modalHeader);
+
+    // Créer un paragraphe
+    const modalParagraph = document.createElement('p');
+    modalParagraph.textContent = 'We hope you enjoy your food!';
+    modalContent.appendChild(modalParagraph);
+
+    // Créer une div pour les articles de la modale
+    const modalArticles = document.createElement('div');
+    modalArticles.className = 'articles';
+
+    // Récupérer les articles du panier
+    const cartItems = document.querySelectorAll(".cart-item");
+    cartItems.forEach(cartItem => {
+        // Créer un div pour chaque article
+        const modalItem = document.createElement('div');
+        modalItem.className = 'modal-item';
+
+        // Récupérer les informations de l'article
+        const itemName = cartItem.querySelector('.name-element').textContent;
+        const itemQuantity = cartItem.querySelector('.cart-item-quantity').textContent;
+        const itemPrice = cartItem.querySelector('.cart-item-price').textContent;
+        const itemTotalPrice = cartItem.querySelector('.cart-item-total-price').textContent;
+        // Ajouter les informations dans la modale
+
+        const nameElement = document.createElement('p');
+        nameElement.textContent = `${itemName}`;
+
+        const quantityElement = document.createElement('p');
+        quantityElement.textContent = `${itemQuantity}`;
+
+        const priceElement = document.createElement('p');
+        priceElement.textContent = `$${itemPrice}`;
+
+        const totalPriceElement = document.createElement('p');
+        totalPriceElement.textContent = `$${itemTotalPrice}`;
+
+        // Ajouter les éléments dans modalItem
+        modalItem.appendChild(nameElement);
+        modalItem.appendChild(quantityElement);
+        modalItem.appendChild(priceElement);
+        modalItem.appendChild(totalPriceElement);
+
+        // Ajouter l'article complet dans la liste des articles de la modale
+        modalArticles.appendChild(modalItem);
+    });
+
+    modalContent.appendChild(modalArticles);
+
+    // Bouton de fermeture
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Start New Order';
+    closeButton.onclick = function () {
+        document.body.removeChild(modal);
+    };
+    modalContent.appendChild(closeButton);
+
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+}
+
+
 
 
 affichage();

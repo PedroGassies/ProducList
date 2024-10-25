@@ -89,7 +89,7 @@ span{
 
 
 .empty-cart-message{
-    margin-top: 24px;
+    margin: 24px 0;
     color: hsl(7, 20%, 60%);
     font-size: 14px;
 }
@@ -159,7 +159,7 @@ span{
 .carbon-neutral-message span{
     color:hsl(14, 65%, 9%);
 }
-.btn-commande,.btn-commande-active,#confirm-order {
+.btn-commande,.btn-commande-active,#confirm-order,.modal-content button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -213,7 +213,7 @@ span{
 .border-active {
     border: 2px solid hsl(14, 86%, 42%); /* Choisis la couleur qui te plaît */
 }
-#confirm-order{
+#confirm-order,.modal-content button{
     color:white;
     background-color: hsl(14, 86%, 42%);
     width:100%;
@@ -221,7 +221,7 @@ span{
     margin: 24px 0;
     padding: 0;
 }
-#confirm-order:hover{
+#confirm-order:hover,.modal-content button:hover{
     cursor: pointer;
 }
 .btnDiv{
@@ -229,7 +229,38 @@ span{
     justify-content: center;
     transform: translateY(-60%);
 }
+/******** MODAL *********/
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* S'assurer que la modale est au-dessus des autres éléments */
+  }
+  
+.modal-content {
+    background-color: white;
+    width: 30%;
+    padding:30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
 
+.modal-content h1{
+    margin: 10px 0;
+}
+ 
+.modal-content p{
+    font-size: 14px;
+    color:hsl(7, 20%, 60%);
+    font-weight: 500;
+}
+  
 @media(max-width:768px){
     main{
         flex-wrap: wrap;
